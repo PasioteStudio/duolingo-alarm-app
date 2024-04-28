@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2024  Wrichik Basu (basulabs.developer@gmail.com)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<resources>
+    <string name="app_name">Alarm For Duolingo</string>
+
+    <!-- Activity_AlarmsList -->
+    <string name="no_alarm">No alarms to show!</string>
+    <string name="not_done">NOT DONE</string>
+    <string name="done">DONE</string>
+    <string name="addAlarm">Add</string>
+    <string name="update">Update</string>
+    <string name="updated">Updated</string>
+    <string name="settingsMenuItem">Settings</string>
+    <string name="toast_alarmSwitchedOn">Alarm set for %s from now.</string>
+    <plurals name="day">
+        <item quantity="one">\u0020day</item>
+        <item quantity="other">\u0020days</item>
+    </plurals>
+    <plurals name="hour">
+        <item quantity="one">\u0020hour</item>
+        <item quantity="other">\u0020hours</item>
+    </plurals>
+    <plurals name="mins">
+        <item quantity="one">\u0020minute</item>
+        <item quantity="other">\u0020minutes</item>
+    </plurals>
+    <string name="and">\u0020and\u0020</string>
+    <string name="toast_alarmDeleted">The alarm at %s was deleted successfully.</string>
+    <string name="toast_alarmSwitchedOff">The alarm at %s was switched off.</string>
+
+    <!-- Activity_AlarmDetails -->
+    <string name="actionBarTitle_newAlarm">New alarm</string>
+    <string name="actionBarTitle_editAlarm">Edit alarm</string>
+    <string name="actionBarTitle_snoozeOptions">Snooze options</string>
+    <string name="actionBarTitle_repeatOptions">Repeat options</string>
+    <string name="actionBarTitle_dateOptions">Alarm date</string>
+    <string name="actionBarTitle_alarmMessage">Alarm message</string>
+
+    <!-- Fragment_AlarmDetails_Main -->
+    <string name="saveButton">SAVE</string>
+    <string name="cancelButton">Cancel</string>
+
+    <string name="repeatButton">Repeat:</string>
+    <string name="repeatNone">Off</string>
+    <string name="alarmType">Alarm type:</string>
+    <string name="alarmVolumeLabel">Alarm Volume:</string>
+    <string name="snoozeLabel">Snooze:</string>
+    <string name="snoozeOffLabel">Off</string>
+    <string name="alarmDateLabel">Alarm date:</string>
+    <string name="alarmDate">%te\u0020%tm,\u0020%tY</string>
+
+    <string-array name="alarmTypeSpinnerEntries">
+        <item>Sound</item>
+        <item>Vibrate</item>
+        <item>Sound &amp; Vibrate</item>
+    </string-array>
+
+    <string name="snoozeOptionsTV_snoozeOn">%d mins, %d times</string>
+    <string name="alarmToneLabel">Alarm tone:</string>
+
+    <string name="alarmMessageLabel">Alarm message:</string>
+    <string name="alarmMessage_default">Not set</string>
+
+    <!-- Fragment_AlarmDetails_Snooze-->
+    <string name="switchOn">On</string>
+    <string name="switchOff">Off</string>
+
+    <string name="snoozeFrequencyLabel">Snooze frequency:</string>
+    <string name="snoozeFreq_three">3 times</string>
+    <string name="snoozeFreq_five">5 times</string>
+    <string name="snoozeFreq_ten">10 times</string>
+    <string name="snoozeFreq_custom">Custom frequency:</string>
+    <string name="snoozeFreq_customHint">Enter a number</string>
+
+    <string name="snoozeIntervalLabel">Snooze interval:</string>
+    <string name="snoozeInterval_five">5 minutes</string>
+    <string name="snoozeInterval_ten">10 minutes</string>
+    <string name="snoozeInterval_fifteen">15 minutes</string>
+    <string name="snoozeInterval_custom">Custom interval (in mins):</string>
+    <string name="snoozeInterval_customHint">Enter interval</string>
+
+    <!-- AlarmAdapter -->
+    <string name="sound">Sound</string>
+    <string name="vibrate">Vibrate</string>
+    <string name="sound_and_vibrate">Sound &amp; Vibrate</string>
+
+    <string name="time_24hour">%02d:%02d</string>
+    <string name="time_12hour">%d:%02d\u0020%s</string>
+    <string name="date">%s,\u0020%02d\u0020%s</string>
+
+    <!-- Activity_RingAlarm-->
+    <string name="alarmMessage">Alarm</string>
+    <string name="alarmTime_24hour">%02d:%02d</string>
+    <string name="snoozeAlarm">Snooze</string>
+
+    <!-- Fragment_AlarmDetails_DatePicker-->
+    <string name="pickDateLabel">Pick a date:</string>
+
+    <!-- Fragment_AlarmDetails_RepeatOptions-->
+    <string name="sunday">Sunday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+
+    <!-- Fragment_AlarmDetails_Message -->
+    <string name="message_label">Enter the alarm message in no more than 50 characters:</string>
+
+    <!-- Service_RingAlarm -->
+    <string name="notifContent_ring">Alarm ringing. Tap to launch alarm screen.</string>
+
+    <!-- Service_SnoozeAlarm -->
+    <string name="notifContent_snooze">Alarm snoozed.</string>
+    <string name="notifAction">Dismiss alarm.</string>
+
+    <!-- Activity_RingtonePicker -->
+    <string name="chooseCustomTone">Choose from storage</string>
+    <string name="defaultTone">Default</string>
+    <string name="silentTone">Silent</string>
+    <string name="play_tone">Play tone</string>
+    <string name="ringtonePicker_defaultTitle">Select tone:</string>
+
+    <!-- AlertDialog_DiscardChanges -->
+    <string name="cancelDialogMessage">Discard changes?</string>
+    <string name="cancelDialog_positive">Yes</string>
+    <string name="cancelDialog_negative">No</string>
+
+    <!-- Activity_Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="shakeOp">If I <b>shake</b> the phone when an alarm rings,</string>
+    <string name="powerBtnOp">If I press the <b>power button</b> when an alarm rings,</string>
+    <string-array name="shakeAndPowerOptions">
+        <item>Snooze the alarm.</item>
+        <item>Dismiss the alarm.</item>
+    </string-array>
+    <string name="settings_snoozeOps"><b>Default snooze options</b>\n<small>(These will be the default snooze options
+        when you create a new alarm.)</small></string>
+    <string name="settings_snoozeInterval">Snooze interval in minutes:</string>
+    <string name="settings_snoozeFreq">Snooze frequency:</string>
+
+    <string name="settings_theme">Choose the theme:</string>
+    <string-array name="themeOptions_noSystem">
+        <item>According to time</item>
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+    <string-array name="themeOptions_all">
+        <item>According to time</item>
+        <item>Light</item>
+        <item>Dark</item>
+        <item>Set by system</item>
+    </string-array>
+
+    <string name="settings_toneUri">Default alarm tone:</string>
+    <string name="settings_setUsername">Duolingo Username:</string>
+    <string name="settings_volume">Default alarm volume:</string>
+    <string name="settings_toneCheckbox">Automatically set new tones I select as default tones for new alarms</string>
+
+    <string name="settings_shakeSensitivityMainLabel"><b>Shake sensitivity settings</b>\n<small>Test the sensitivity of the shake
+        detector, and change it as you wish</small></string>
+    <string name="shakeSensitivityChangeLabel"><small>Change sensitivity:</small></string>
+    <string name="leastSensitiveLabel">\u2191\nLeast\nsensitive</string>
+    <string name="mostSensitiveLabel">\u2191\nMost\nsensitive</string>
+    <string name="testShake"><small><b>Test shake sensitivity</b>\nTap to enable the shake detector so that you can
+        choose the sensitivity that correctly suits you.</small></string>
+
+    <!-- Service_SetAlarmsPostBoot -->
+    <string name="updateAlarm_notifMessage">Activating alarms. This may take a while…</string>
+    <string name="updateAlarm_alarmMissedTitle">Alarm missed!</string>
+    <string name="updateAlarm_alarmMissedText">The alarm at %s did not ring.</string>
+
+    <!-- AlertDialog_TestShakeSensitivity -->
+    <string name="title_shakeDetectionTest">Test sensitivity of shake detector</string>
+    <string name="message_shakeDetectionTest">Shake your phone. A vibration will tell you that a shake event has
+    been detected. Change the sensitivity as per your choice.</string>
+    <string name="negative_shakeDetectionTest">Stop</string>
+
+    <string name="defaultAlarmToneText">Default alarm tone</string>
+
+    <string name="essential_perms_missing">Essential permissions missing!</string>
+    <string name="missing_perms_exp">Certain essential permissions are missing, due to which this app can\'t set
+    alarms. Please grant them below:</string>
+    <string name="grant_permission">Grant permissions</string>
+
+    <string name="error_notif_title">Error in setting alarms!</string>
+    <string name="error_notif_body">Alarms could not be set due to missing permission. Tap to see details.</string>
+    <string name="perm_granted">Thanks for the permission. Setting up alarms. You may close the app.</string>
+
+    <!-- Notification Channel Names -->
+    <string name="notif_channel_name_ring_alarms">Ringing alarms</string>
+    <string name="notif_channel_name_snoozed_alarms">Snoozed alarms</string>
+    <string name="notif_channel_error">Errors</string>
+    <string name="notif_channel_boot">Post boot notifications</string>
+
+    <string name="grant_access">Grant access</string>
+    <string name="requirement_type">Requirement type:</string>
+    <string name="perm_type_essential">Essential</string>
+    <string name="perm_type_optional">Optional</string>
+    <string name="perm_type_recom">Highly recommended</string>
+    <string name="app_req_perm">The app requests the following permissions:</string>
+
+    <string-array name="perm_title">
+        <item>@string/perm_title_post_notif</item>
+        <item>@string/perm_title_ign_bat_optim</item>
+        <item>@string/perm_title_notif_policy</item>
+        <item>@string/perm_title_read_media_audio</item>
+    </string-array>
+
+    <string-array name="perm_exp">
+        <item>@string/perm_exp_post_notif</item>
+        <item>@string/perm_exp_ign_bat_optim</item>
+        <item>@string/perm_exp_notif_policy</item>
+        <item>@string/perm_exp_media_audio</item>
+    </string-array>
+
+    <string name="perm_title_post_notif">Post notifications</string>
+    <string name="perm_exp_post_notif">This permission allows the app to post notifications. Without this, you will
+    not see the alarm screen when an alarm rings, nor be able to dismiss it later from the notification.</string>
+
+    <string name="perm_title_read_media_audio">Read audio files</string>
+    <string name="perm_exp_media_audio">This permission is required if you want to
+    choose an alarm tone different from the default alarm tone of your device. Allows the app to read audio and music files
+    on your device.</string>
+
+    <string name="perm_title_notif_policy">Change Do Not Disturb settings</string>
+    <string name="perm_exp_notif_policy">The app allows you to set different ring volumes for each alarm.
+    Before ringing the alarm, the app tries to change the volume of the system alarm stream to the volume you
+    have set (and restores it to what it was initially). To change the volume, the permission
+    to change Do Not Disturb settings is needed in Android Nougat and above. If not granted, the app will
+    simply not set the volume before ringing the alarm.</string>
+
+    <string name="perm_title_ign_bat_optim">Ignore Battery Optimizations</string>
+    <string name="perm_exp_ign_bat_optim">The Android system, by default, sets all user installed apps
+    to be optimized to save battery. While this is OK for many apps, this app is an alarm clock app, and often faces trouble
+    if set to optimize battery. With this enabled, the Android system can kill the app at any time and/or cancel the alarms it has set, which
+    will be detrimental to the working of the app. We recommend you to whitelist this app from battery optimizations.</string>
+
+    <string name="perm_title_exact_alarms">Schedule Alarms</string>
+    <string name="perm_expln_exact_alarms">Android versions S and above need a permission to
+    schedule exact alarms. Without this, the app will not be able to schedule any alarms. </string>
+
+    <string name="perm_title_ext_storage">Read external storage</string>
+    <string name="perm_exp_ext_storage">This permission is required if you want to
+    choose an alarm tone different from the default alarm tone of your device. Allows the app to read audio and music files
+    on your device. On higher Android versions, we request a granular permission that allow us to read only the
+    music and audio files and nothing else, thus ensuring you, the user, more privacy. However, in the Android version
+    running on your device, this is not supported, so we have to ask for permission to read external storage.</string>
+
+    <string name="perm_requested_twice">Seems you have already denied this permission twice.
+    Android will not allow this app to create the permission request dialog again. Would you
+    like to head to Settings and allow this permission?</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+</resources>
