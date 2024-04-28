@@ -7,4 +7,4 @@ Only one release is supported at a moment; we don't have seperate edge/nightly b
 
 ### Reporting a Vulnerability
 
-Please report all security vulnerabilities to basulabs.developer@gmail.com, and I will reply back to you as soon as possible, typically within 48 hours.
+Please report all security vulnerabilities to support@pasiotestudio.hu, and I will reply back to you as soon as possible, typically within 48 hours.
