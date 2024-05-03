@@ -18,15 +18,31 @@ package in.basulabs.shakealarmclock.backend;
 
 import static android.content.Context.POWER_SERVICE;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
+import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.PowerManager;
+import android.util.Log;
+import android.widget.Toast;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
+import java.util.Date;
 import java.util.Objects;
 
+import in.basulabs.shakealarmclock.R;
 import in.basulabs.shakealarmclock.backend.ConstantsAndStatics;
 import in.basulabs.shakealarmclock.backend.Service_RingAlarm;
 import in.basulabs.shakealarmclock.backend.Service_SetAlarmsPostBoot;
@@ -35,10 +51,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-
-		if (Objects.equals(intent.getAction(),
-			ConstantsAndStatics.ACTION_DELIVER_ALARM)) {
-
+		if (Objects.equals(intent.getAction(), ConstantsAndStatics.ACTION_DELIVER_ALARM)) {
 			PowerManager powerManager = (PowerManager) context.getSystemService(
 				POWER_SERVICE);
 			PowerManager.WakeLock wakeLock = powerManager.newWakeLock(
@@ -50,7 +63,9 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 				.putExtra(ConstantsAndStatics.BUNDLE_KEY_ALARM_DETAILS,
 					Objects.requireNonNull(intent.getExtras())
 						.getBundle(ConstantsAndStatics.BUNDLE_KEY_ALARM_DETAILS));
+			intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			ContextCompat.startForegroundService(context, intent1);
+
 
 		} else if (Objects.equals(intent.getAction(), Intent.ACTION_BOOT_COMPLETED) ||
 			Objects.equals(intent.getAction(), Intent.ACTION_LOCKED_BOOT_COMPLETED)) {
@@ -63,6 +78,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 			wakeLock.acquire(60000);
 
 			Intent intent1 = new Intent(context, Service_SetAlarmsPostBoot.class);
+			intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			ContextCompat.startForegroundService(context, intent1);
 		}
 

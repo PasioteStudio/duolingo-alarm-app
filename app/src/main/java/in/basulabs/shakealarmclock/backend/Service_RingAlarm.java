@@ -32,6 +32,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.health.connect.LocalTimeRangeFilter;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -79,6 +80,7 @@ import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
@@ -158,6 +160,7 @@ public class Service_RingAlarm extends Service implements SensorEventListener,
 	private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
+
 			if (Objects.equals(intent.getAction(),
 				ConstantsAndStatics.ACTION_SNOOZE_ALARM)) {
 				snoozeAlarm();
@@ -209,26 +212,57 @@ public class Service_RingAlarm extends Service implements SensorEventListener,
 		con.disconnect();
 		return content.toString();
 	}
-	public int startingThread(Intent intent, int flags, int startId){
-		return 0;
-	}
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+
+		Calendar rightNow = Calendar.getInstance();
+		alarmDetails = Objects.requireNonNull(Objects.requireNonNull(intent.getExtras())
+				.getBundle(ConstantsAndStatics.BUNDLE_KEY_ALARM_DETAILS));
+		if(rightNow.get(Calendar.HOUR_OF_DAY)!=alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_ALARM_HOUR) || rightNow.get(Calendar.MINUTE)!=alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_ALARM_MINUTE)){
+			NotificationChannel channel = null;
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+				channel = new NotificationChannel(Integer.toString(ConstantsAndStatics.NOTIF_CHANNEL_ID_ALARM),
+						"Channel human readable title",
+						NotificationManager.IMPORTANCE_DEFAULT);
+				((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).createNotificationChannel(channel);
+			}
+			Notification notification = new NotificationCompat.Builder(this, Integer.toString(ConstantsAndStatics.NOTIF_CHANNEL_ID_ALARM))
+					.setContentTitle(getResources().getString(R.string.app_name))
+					.setPriority(NotificationCompat.PRIORITY_MIN)
+					.setCategory(NotificationCompat.CATEGORY_ALARM)
+					.setSmallIcon(R.drawable.ic_notif)
+					.setContentText("Sorry-sorry").build();
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+					startForeground(1, notification);
+				} else {
+					startForeground(1, notification);
+				}
+			} else {
+				startForeground(1, notification);
+			}
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+				stopForeground(Service.STOP_FOREGROUND_DETACH);
+			}
+			return Service.START_STICKY_COMPATIBILITY;
+		}
 		sharedPreferences = ConstantsAndStatics.getSharedPref(this);
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
 		StrictMode.setThreadPolicy(policy);
 		//DUOLINGO API
 		URL url = null;
-		String USERNAME=sharedPreferences.getString(ConstantsAndStatics.SHARED_PREF_KEY_DEFAULT_DUOLINGO_USERNAME,"0");
+		String USERNAME=sharedPreferences.getString(ConstantsAndStatics.SHARED_PREF_KEY_DEFAULT_DUOLINGO_USERNAME,"");
 		HttpURLConnection con = null;
+		boolean isValidUsername=true;
+		boolean isHaveInternet=false;
 		try {
 			url = new URL("https://www.duolingo.com/2017-06-30/users?username="+USERNAME);
 			con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
-
-
 			JSONObject object = new JSONObject(getFullResponse(con));
+			isValidUsername=!String.valueOf(object.getJSONArray("users")).equals("[]");
+
 			JSONObject element = object.getJSONArray("users").getJSONObject(0);
 			JSONObject STREAK=new JSONObject(element.getJSONObject("streakData").getString("currentStreak"));
 			String END_DATA=STREAK.getString("endDate");
@@ -372,12 +406,44 @@ public class Service_RingAlarm extends Service implements SensorEventListener,
 				}
 			}
 		}catch (IOException|JSONException e) {
-            throw new RuntimeException(e);
+			NotificationChannel channel = null;
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+				channel = new NotificationChannel(Integer.toString(ConstantsAndStatics.NOTIF_CHANNEL_ID_ALARM),
+						"Channel human readable title",
+						NotificationManager.IMPORTANCE_DEFAULT);
+				((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).createNotificationChannel(channel);
+			}
+			NotificationCompat.Builder builder = new NotificationCompat.Builder(this, Integer.toString(ConstantsAndStatics.NOTIF_CHANNEL_ID_ALARM))
+					.setContentTitle(getResources().getString(R.string.app_name))
+					.setPriority(NotificationCompat.PRIORITY_MIN)
+					.setCategory(NotificationCompat.CATEGORY_ALARM)
+					.setSmallIcon(R.drawable.ic_notif)
+					.setContentText("You're free from Duolingo... For now");
+			if(USERNAME.isEmpty()){
+				builder.setContentText("No user selected!");
+			}else if(!isValidUsername){
+				builder.setContentText("User not found!");
+			}else if(!isHaveInternet){
+				builder.setContentText("Can't connect to the Internet!");
+			}
+			Notification notification = builder.build();
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+					startForeground(1, notification);
+				} else {
+					startForeground(1, notification);
+				}
+			} else {
+				startForeground(1, notification);
+			}
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+				stopForeground(Service.STOP_FOREGROUND_DETACH);
+			}
         }
-
 
 		return START_NOT_STICKY;
 	}
+
 
 	//---------------------------------------------------------------------------------
 	//----------------------------------------------------------------------------------

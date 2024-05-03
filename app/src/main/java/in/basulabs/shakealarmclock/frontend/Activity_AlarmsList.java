@@ -159,7 +159,7 @@ public class Activity_AlarmsList extends AppCompatActivity implements
 				Duo=getResources().getString(R.string.done);
 			}
 		}catch (IOException | JSONException e) {
-			Duo=getResources().getString(R.string.not_done);
+			Duo=getResources().getString(R.string.unknown);
 		}
 		TextView Username = (TextView)findViewById(R.id.Username_duolingo);
 		Username.setText(USERNAME);

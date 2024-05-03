@@ -385,7 +385,7 @@ public class Activity_Settings extends AppCompatActivity implements
 		///////////////////////////////////////////////////////
 		username = findViewById(R.id.Username);
 		username.setText(String.valueOf(sharedPreferences.getString(
-				ConstantsAndStatics.SHARED_PREF_KEY_DEFAULT_DUOLINGO_USERNAME, "Atemzy")));
+				ConstantsAndStatics.SHARED_PREF_KEY_DEFAULT_DUOLINGO_USERNAME, "")));
 		username.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void beforeTextChanged(CharSequence charSequence, int start,

@@ -399,13 +399,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     <EditText
         android:id="@+id/Username"
-        android:layout_width="214dp"
-        android:layout_height="49dp"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
         android:layout_marginStart="16dp"
-        android:ems="10"
+        android:layout_marginEnd="16dp"
         android:inputType="textPersonName|textAutoCorrect|textCapSentences"
         android:maxLength="50"
         android:textColor="@color/defaultLabelColor"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView20" />
 

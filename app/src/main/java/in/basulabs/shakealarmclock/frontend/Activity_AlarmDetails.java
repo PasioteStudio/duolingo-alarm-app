@@ -343,7 +343,7 @@ public class Activity_AlarmDetails extends AppCompatActivity implements
 		//DUOLINGO API
 		URL url = null;
 		Integer length=0;
-		String USERNAME=sharedPref.getString(ConstantsAndStatics.SHARED_PREF_KEY_DEFAULT_DUOLINGO_USERNAME,"0");
+		String USERNAME=sharedPref.getString(ConstantsAndStatics.SHARED_PREF_KEY_DEFAULT_DUOLINGO_USERNAME,"");
 		HttpURLConnection con = null;
 		try {
 			url = new URL("https://www.duolingo.com/2017-06-30/users?username="+USERNAME);
@@ -362,7 +362,7 @@ public class Activity_AlarmDetails extends AppCompatActivity implements
 				Duo=getResources().getString(R.string.done);
 			}
 		}catch (IOException | JSONException e) {
-			Duo=getResources().getString(R.string.not_done);
+			Duo=getResources().getString(R.string.unknown);
 		}
 		if (username_too){
 			TextView Username = (TextView)findViewById(R.id.Username_duolingo);

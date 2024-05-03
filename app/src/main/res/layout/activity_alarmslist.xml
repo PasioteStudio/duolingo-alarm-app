@@ -39,7 +39,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/button_border"
         android:text="@string/addAlarm"
         android:textAllCaps="true"
@@ -50,14 +50,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         android:id="@+id/UpdateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="3dp"
         android:background="@drawable/button_border"
         android:text="@string/update"
         android:textAllCaps="true"
         app:layout_constraintEnd_toStartOf="@+id/addAlarmButton"
-        app:layout_constraintStart_toEndOf="@+id/streak"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -89,23 +87,33 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
         android:id="@+id/Username_duolingo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
+        android:autoText="true"
+        android:maxWidth="150dp"
+        android:maxEms="5"
         android:textSize="24sp"
+        app:autoSizeMaxTextSize="20dp"
+        app:autoSizeStepGranularity="0.1dp"
+        app:autoSizeTextType="uniform"
+        app:flow_maxElementsWrap="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
         android:id="@+id/streak"
-        android:layout_width="57dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="27dp"
+        android:layout_width="82dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="80dp"
+        android:autoText="true"
         android:text="0🔥"
         android:textSize="25sp"
-        app:layout_constraintEnd_toStartOf="@+id/addAlarmButton"
+        app:autoSizeMaxTextSize="25dp"
+        app:autoSizeStepGranularity="0.1dp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintStart_toEndOf="@+id/Username_duolingo"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintWidth_max="80dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

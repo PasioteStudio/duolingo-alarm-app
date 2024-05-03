@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     <string name="no_alarm">No alarms to show!</string>
     <string name="not_done">NOT DONE</string>
     <string name="done">DONE</string>
+    <string name="unknown">UNKNOWN</string>
     <string name="addAlarm">Add</string>
     <string name="update">Update</string>
     <string name="updated">Updated</string>

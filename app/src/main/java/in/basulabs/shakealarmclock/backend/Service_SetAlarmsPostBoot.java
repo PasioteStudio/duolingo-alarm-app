@@ -61,6 +61,33 @@ public class Service_SetAlarmsPostBoot extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 
+		NotificationChannel channel2 = null;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			channel2= new NotificationChannel(Integer.toString(ConstantsAndStatics.NOTIF_CHANNEL_ID_ALARM),
+					"Channel human readable title",
+					NotificationManager.IMPORTANCE_DEFAULT);
+			((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).createNotificationChannel(channel2);
+		}
+		Notification notification2 = new NotificationCompat.Builder(this, Integer.toString(ConstantsAndStatics.NOTIF_CHANNEL_ID_ALARM))
+				.setContentTitle(getResources().getString(R.string.app_name))
+				.setPriority(NotificationCompat.PRIORITY_MIN)
+				.setCategory(NotificationCompat.CATEGORY_ALARM)
+				.setSmallIcon(R.drawable.ic_notif)
+				.setContentText("Indul").build();
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+				startForeground(1, notification2);
+			} else {
+				startForeground(1, notification2);
+			}
+		} else {
+			startForeground(1, notification2);
+		}
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+			stopForeground(Service.STOP_FOREGROUND_DETACH);
+		}
+
+
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
 				startForeground(UniqueNotifID.getID(), buildForegroundNotification(),

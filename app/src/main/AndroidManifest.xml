@@ -113,15 +113,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             android:name=".backend.AlarmBroadcastReceiver"
             android:enabled="true"
             android:exported="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED"
             android:directBootAware="true">
             <intent-filter>
                 <action android:name="in.basulabs.shakealarmclock.DELIVER_ALARM" />
-            </intent-filter>
-            <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-            <intent-filter>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+                <action android:name="android.intent.action.ACTION_BOOT_COMPLETED" />
+                <action android:name="android.intent.action.TIME_SET"/>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
                 <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
 
