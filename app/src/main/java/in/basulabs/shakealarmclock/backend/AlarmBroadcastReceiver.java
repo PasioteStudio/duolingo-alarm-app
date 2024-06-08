@@ -25,11 +25,13 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -39,6 +41,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
@@ -48,9 +51,16 @@ import in.basulabs.shakealarmclock.backend.Service_RingAlarm;
 import in.basulabs.shakealarmclock.backend.Service_SetAlarmsPostBoot;
 
 public class AlarmBroadcastReceiver extends BroadcastReceiver {
-
+	private Bundle alarmDetails;
 	@Override
 	public void onReceive(Context context, Intent intent) {
+		Calendar rightNow = Calendar.getInstance();
+		alarmDetails = Objects.requireNonNull(Objects.requireNonNull(intent.getExtras())
+				.getBundle(ConstantsAndStatics.BUNDLE_KEY_ALARM_DETAILS));
+		if(rightNow.get(Calendar.HOUR_OF_DAY)!=alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_ALARM_HOUR) || rightNow.get(Calendar.MINUTE)!=alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_ALARM_MINUTE)){
+			/* No random false alarms anymore */
+			return;
+		}
 		if (Objects.equals(intent.getAction(), ConstantsAndStatics.ACTION_DELIVER_ALARM)) {
 			PowerManager powerManager = (PowerManager) context.getSystemService(
 				POWER_SERVICE);
