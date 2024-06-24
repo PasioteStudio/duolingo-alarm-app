@@ -57,10 +57,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 		Calendar rightNow = Calendar.getInstance();
 		alarmDetails = Objects.requireNonNull(Objects.requireNonNull(intent.getExtras())
 				.getBundle(ConstantsAndStatics.BUNDLE_KEY_ALARM_DETAILS));
-		if(rightNow.get(Calendar.HOUR_OF_DAY)!=alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_ALARM_HOUR) || rightNow.get(Calendar.MINUTE)!=alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_ALARM_MINUTE)){
-			/* No random false alarms anymore */
-			return;
-		}
+
 		if (Objects.equals(intent.getAction(), ConstantsAndStatics.ACTION_DELIVER_ALARM)) {
 			PowerManager powerManager = (PowerManager) context.getSystemService(
 				POWER_SERVICE);
@@ -74,6 +71,10 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 					Objects.requireNonNull(intent.getExtras())
 						.getBundle(ConstantsAndStatics.BUNDLE_KEY_ALARM_DETAILS));
 			intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			if(rightNow.get(Calendar.HOUR_OF_DAY)!=alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_ALARM_HOUR) || rightNow.get(Calendar.MINUTE)!=alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_ALARM_MINUTE)){
+				/* No random false alarms anymore */
+				return;
+			}
 			ContextCompat.startForegroundService(context, intent1);
 
 
