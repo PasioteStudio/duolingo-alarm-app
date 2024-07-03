@@ -745,8 +745,9 @@ public final class ConstantsAndStatics {
 
 				permsList.add(Manifest.permission.READ_EXTERNAL_STORAGE);
 			}
-		}
 
+		}
+		permsList.add(Manifest.permission.RECEIVE_BOOT_COMPLETED);
 		return permsList;
 	}
 

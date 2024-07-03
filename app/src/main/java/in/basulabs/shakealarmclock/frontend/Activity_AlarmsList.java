@@ -17,34 +17,26 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 package in.basulabs.shakealarmclock.frontend;
 
 import static in.basulabs.shakealarmclock.backend.ConstantsAndStatics.BUNDLE_KEY_ALARM_DUOLINGO;
-import static in.basulabs.shakealarmclock.backend.ConstantsAndStatics.BUNDLE_KEY_ALARM_MESSAGE;
 import static in.basulabs.shakealarmclock.backend.ConstantsAndStatics.DATABASE_NAME;
 import static in.basulabs.shakealarmclock.backend.Service_RingAlarm.getFullResponse;
 
 import android.app.AlarmManager;
-import android.app.Notification;
+import android.app.AppOpsManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.ServiceInfo;
-import android.hardware.SensorManager;
-import android.media.AudioAttributes;
-import android.media.AudioManager;
-import android.net.Uri;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.StrictMode;
-import android.os.Vibrator;
-import android.provider.Settings;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
@@ -62,8 +54,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -72,7 +62,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -85,14 +75,12 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import in.basulabs.audiofocuscontroller.AudioFocusController;
 import in.basulabs.shakealarmclock.R;
 import in.basulabs.shakealarmclock.backend.AlarmBroadcastReceiver;
 import in.basulabs.shakealarmclock.backend.AlarmDatabase;
@@ -100,7 +88,6 @@ import in.basulabs.shakealarmclock.backend.AlarmEntity;
 import in.basulabs.shakealarmclock.backend.ConstantsAndStatics;
 import in.basulabs.shakealarmclock.backend.Service_RingAlarm;
 import in.basulabs.shakealarmclock.backend.Service_SnoozeAlarm;
-import in.basulabs.shakealarmclock.backend.UniqueNotifID;
 
 public class Activity_AlarmsList extends AppCompatActivity implements
 	AlarmAdapter.AdapterInterface {
@@ -759,6 +746,8 @@ public class Activity_AlarmsList extends AppCompatActivity implements
 	}
 
 	//------------------------------------------------------------------------------
+
+
 
 	/**
 	 * Initializes all activity launchers.

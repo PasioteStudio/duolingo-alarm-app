@@ -138,6 +138,18 @@ public class ViewModel_ListReqPerm extends ViewModel {
 									ConstantsAndStatics.PERMISSION_LEVEL_OPTIONAL,
 								getTimesPermRequested(sharedPref,
 									Manifest.permission.READ_EXTERNAL_STORAGE)));
+					case Manifest.permission.RECEIVE_BOOT_COMPLETED ->
+						Objects.requireNonNull(permsQueue.getValue())
+							.add(new Permission(
+								Manifest.permission.RECEIVE_BOOT_COMPLETED,
+								R.string.perm_title_receive_boot_completed,
+								R.string.perm_exp_receive_boot_completed,
+								Objects.requireNonNull(permsLevelMap.getValue())
+									.containsKey(perm) ?
+									permsLevelMap.getValue().get(perm) :
+									ConstantsAndStatics.PERMISSION_LEVEL_OPTIONAL,
+								getTimesPermRequested(sharedPref,
+									Manifest.permission.RECEIVE_BOOT_COMPLETED)));
 
 				}
 			}

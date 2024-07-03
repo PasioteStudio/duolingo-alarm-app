@@ -276,7 +276,6 @@ public class Service_RingAlarm extends Service implements SensorEventListener,
 				// Do NOT move this!!!!
 				alarmDetails = Objects.requireNonNull(Objects.requireNonNull(intent.getExtras())
 						.getBundle(ConstantsAndStatics.BUNDLE_KEY_ALARM_DETAILS));
-
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
 						startForeground(notifID, buildRingNotification(),

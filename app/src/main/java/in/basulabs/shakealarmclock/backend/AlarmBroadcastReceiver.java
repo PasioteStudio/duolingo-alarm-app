@@ -21,12 +21,16 @@ import static android.content.Context.POWER_SERVICE;
 import static androidx.core.content.ContextCompat.getSystemService;
 
 import android.Manifest;
+import android.app.ActivityManager;
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.ComponentCallbacks2;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -51,13 +55,10 @@ import in.basulabs.shakealarmclock.backend.Service_RingAlarm;
 import in.basulabs.shakealarmclock.backend.Service_SetAlarmsPostBoot;
 
 public class AlarmBroadcastReceiver extends BroadcastReceiver {
-	private Bundle alarmDetails;
+
+
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		Calendar rightNow = Calendar.getInstance();
-		alarmDetails = Objects.requireNonNull(Objects.requireNonNull(intent.getExtras())
-				.getBundle(ConstantsAndStatics.BUNDLE_KEY_ALARM_DETAILS));
-
 		if (Objects.equals(intent.getAction(), ConstantsAndStatics.ACTION_DELIVER_ALARM)) {
 			PowerManager powerManager = (PowerManager) context.getSystemService(
 				POWER_SERVICE);
@@ -71,12 +72,16 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 					Objects.requireNonNull(intent.getExtras())
 						.getBundle(ConstantsAndStatics.BUNDLE_KEY_ALARM_DETAILS));
 			intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			if(rightNow.get(Calendar.HOUR_OF_DAY)!=alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_ALARM_HOUR) || rightNow.get(Calendar.MINUTE)!=alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_ALARM_MINUTE)){
+
+
+			Calendar rightNow = Calendar.getInstance();
+			Bundle alarmDetails = Objects.requireNonNull(intent.getExtras()
+					.getBundle(ConstantsAndStatics.BUNDLE_KEY_ALARM_DETAILS));
+			if(rightNow.get(Calendar.HOUR_OF_DAY)!= alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_ALARM_HOUR) || rightNow.get(Calendar.MINUTE)!= alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_ALARM_MINUTE)){
 				/* No random false alarms anymore */
 				return;
 			}
 			ContextCompat.startForegroundService(context, intent1);
-
 
 		} else if (Objects.equals(intent.getAction(), Intent.ACTION_BOOT_COMPLETED) ||
 			Objects.equals(intent.getAction(), Intent.ACTION_LOCKED_BOOT_COMPLETED)) {

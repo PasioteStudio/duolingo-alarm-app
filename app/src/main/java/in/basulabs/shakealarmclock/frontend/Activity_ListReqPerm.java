@@ -22,16 +22,19 @@ import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -48,6 +51,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import in.basulabs.shakealarmclock.R;
@@ -233,6 +237,8 @@ public class Activity_ListReqPerm extends AppCompatActivity implements
 
 			case Manifest.permission.READ_EXTERNAL_STORAGE ->
 				requestExtStoragePerm(numberOfTimesRequested);
+			case Manifest.permission.RECEIVE_BOOT_COMPLETED ->
+				addAutoStartup();
 		}
 	}
 
@@ -300,8 +306,33 @@ public class Activity_ListReqPerm extends AppCompatActivity implements
 	 * 	requested. Based on this parameter, either the permission is requested directly,
 	 * 	or Settings is opened.
 	 */
-	private void requestPostNotifPerm(int numberOfTimesRequested) {
+	//------------------------------------------------------------------------------
+	private void addAutoStartup() {
 
+		try {
+			Intent intent = new Intent();
+			String manufacturer = android.os.Build.MANUFACTURER;
+			if ("xiaomi".equalsIgnoreCase(manufacturer)) {
+				intent.setComponent(new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity"));
+			} else if ("oppo".equalsIgnoreCase(manufacturer)) {
+				intent.setComponent(new ComponentName("com.coloros.safecenter", "com.coloros.safecenter.permission.startup.StartupAppListActivity"));
+			} else if ("vivo".equalsIgnoreCase(manufacturer)) {
+				intent.setComponent(new ComponentName("com.vivo.permissionmanager", "com.vivo.permissionmanager.activity.BgStartUpManagerActivity"));
+			} else if ("Letv".equalsIgnoreCase(manufacturer)) {
+				intent.setComponent(new ComponentName("com.letv.android.letvsafe", "com.letv.android.letvsafe.AutobootManageActivity"));
+			} else if ("Honor".equalsIgnoreCase(manufacturer)) {
+				intent.setComponent(new ComponentName("com.huawei.systemmanager", "com.huawei.systemmanager.optimize.process.ProtectActivity"));
+			}
+
+			List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+			if  (!list.isEmpty()) {
+				startActivity(intent);
+			}
+		} catch (Exception e) {
+			Log.e("exc" , String.valueOf(e));
+		}
+	}
+	private void requestPostNotifPerm(int numberOfTimesRequested) {
 		switch (numberOfTimesRequested) {
 
 			case 0, 1, 2 ->

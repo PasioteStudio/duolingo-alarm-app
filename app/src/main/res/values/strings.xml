@@ -263,6 +263,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     on your device. On higher Android versions, we request a granular permission that allow us to read only the
     music and audio files and nothing else, thus ensuring you, the user, more privacy. However, in the Android version
     running on your device, this is not supported, so we have to ask for permission to read external storage.</string>
+    <string name="perm_title_receive_boot_completed">Autostart after Boot</string>
+    <string name="perm_exp_receive_boot_completed">This permission is required if you want to
+    set the alarms after boot completed, if not you have to open the app every time your device boots up. Allows the app to
+    start after boot completed.</string>
 
     <string name="perm_requested_twice">Seems you have already denied this permission twice.
     Android will not allow this app to create the permission request dialog again. Would you
