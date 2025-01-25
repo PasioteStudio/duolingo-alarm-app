@@ -154,11 +154,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
             android:configChanges="orientation|keyboard"
             android:enabled="true"
             android:excludeFromRecents="true"
-            android:exported="false"
+            android:exported="true"
             android:noHistory="true"
             android:screenOrientation="sensorPortrait"
             android:showOnLockScreen="true"
             android:taskAffinity=""
+            android:launchMode="standard"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity

@@ -106,7 +106,8 @@ public class Activity_IntentManager extends AppCompatActivity {
 					Intent intent1 = new Intent(this, Activity_AlarmsList.class);
 					intent1.setAction(ACTION_NEW_ALARM_FROM_INTENT)
 						.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-						.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+						.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+						.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					startActivity(intent1);
 
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -153,6 +154,7 @@ public class Activity_IntentManager extends AppCompatActivity {
 						.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 						.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 					startActivity(intent2);
+					//TODO
 				}
 			}
 			case AlarmClock.ACTION_SNOOZE_ALARM -> {

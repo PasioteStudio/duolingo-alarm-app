@@ -23,15 +23,29 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     android:layout_height="match_parent"
     android:background="#000000">
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/millio" />
+
     <TextView
         android:id="@+id/alarmmessageTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="196dp"
+        android:layout_height="41dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="24dp"
-        android:text="@string/alarmMessage"
+        android:background="#80000000"
+        android:backgroundTint="#0B0B0B"
         android:gravity="center"
+        android:text="@string/alarmMessage"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,11 +55,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
     <TextView
         android:id="@+id/alarmTimeTextView2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="155dp"
+        android:layout_height="71dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="45dp"
         android:layout_marginEnd="24dp"
+        android:background="#80000000"
         android:gravity="center"
         android:text="00:00"
         android:textColor="#FFFFFF"

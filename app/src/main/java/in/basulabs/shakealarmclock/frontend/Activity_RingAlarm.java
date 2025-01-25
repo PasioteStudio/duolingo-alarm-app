@@ -24,6 +24,7 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
@@ -59,11 +60,11 @@ public class Activity_RingAlarm extends AppCompatActivity implements
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
-
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
 			WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
 			WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
-			WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+			WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
+			WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
 			setTurnScreenOn(true);

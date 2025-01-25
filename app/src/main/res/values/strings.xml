@@ -105,9 +105,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
     <string name="date">%s,\u0020%02d\u0020%s</string>
 
     <!-- Activity_RingAlarm-->
-    <string name="alarmMessage">Alarm</string>
+    <string name="alarmMessage">Buzi-E vagy?</string>
     <string name="alarmTime_24hour">%02d:%02d</string>
-    <string name="snoozeAlarm">Snooze</string>
+    <string name="snoozeAlarm">Az vagyok</string>
 
     <!-- Fragment_AlarmDetails_DatePicker-->
     <string name="pickDateLabel">Pick a date:</string>

@@ -53,10 +53,10 @@ import in.basulabs.shakealarmclock.R;
 import in.basulabs.shakealarmclock.backend.ConstantsAndStatics;
 import in.basulabs.shakealarmclock.backend.Service_RingAlarm;
 import in.basulabs.shakealarmclock.backend.Service_SetAlarmsPostBoot;
+import in.basulabs.shakealarmclock.frontend.Activity_RingAlarm;
 
 public class AlarmBroadcastReceiver extends BroadcastReceiver {
-
-
+	private Bundle alarmDetails;
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		if (Objects.equals(intent.getAction(), ConstantsAndStatics.ACTION_DELIVER_ALARM)) {
@@ -71,6 +71,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 				.putExtra(ConstantsAndStatics.BUNDLE_KEY_ALARM_DETAILS,
 					Objects.requireNonNull(intent.getExtras())
 						.getBundle(ConstantsAndStatics.BUNDLE_KEY_ALARM_DETAILS));
+
 			intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 
@@ -81,6 +82,13 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 				/* No random false alarms anymore */
 				return;
 			}
+			/*Intent fullScreenIntent = new Intent(context, Activity_RingAlarm.class)
+					.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+					.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+					.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+					.putExtras(alarmDetails);*/
+			//context.startActivity(fullScreenIntent);
+
 			ContextCompat.startForegroundService(context, intent1);
 
 		} else if (Objects.equals(intent.getAction(), Intent.ACTION_BOOT_COMPLETED) ||

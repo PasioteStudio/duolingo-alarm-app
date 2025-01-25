@@ -22,6 +22,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -48,6 +49,7 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -212,6 +214,7 @@ public class Service_RingAlarm extends Service implements SensorEventListener,
 		con.disconnect();
 		return content.toString();
 	}
+
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 
@@ -219,33 +222,19 @@ public class Service_RingAlarm extends Service implements SensorEventListener,
 		alarmDetails = Objects.requireNonNull(Objects.requireNonNull(intent.getExtras())
 				.getBundle(ConstantsAndStatics.BUNDLE_KEY_ALARM_DETAILS));
 		if(rightNow.get(Calendar.HOUR_OF_DAY)!=alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_ALARM_HOUR) || rightNow.get(Calendar.MINUTE)!=alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_ALARM_MINUTE)){
-			NotificationChannel channel = null;
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-				channel = new NotificationChannel(Integer.toString(ConstantsAndStatics.NOTIF_CHANNEL_ID_ALARM),
-						"Channel human readable title",
-						NotificationManager.IMPORTANCE_DEFAULT);
-				((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).createNotificationChannel(channel);
-			}
-			Notification notification = new NotificationCompat.Builder(this, Integer.toString(ConstantsAndStatics.NOTIF_CHANNEL_ID_ALARM))
-					.setContentTitle(getResources().getString(R.string.app_name))
-					.setPriority(NotificationCompat.PRIORITY_MIN)
-					.setCategory(NotificationCompat.CATEGORY_ALARM)
-					.setSmallIcon(R.drawable.ic_notif)
-					.setContentText("Sorry-sorry").build();
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-					startForeground(1, notification);
-				} else {
-					startForeground(1, notification);
-				}
-			} else {
-				startForeground(1, notification);
-			}
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-				stopForeground(Service.STOP_FOREGROUND_DETACH);
-			}
 			return Service.START_STICKY_COMPATIBILITY;
 		}
+		Intent fullScreenIntent = new Intent(this, Activity_RingAlarm.class)
+				.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+				.putExtras(alarmDetails);
+		//I dont know why, but I have to define an alarm to start the activity
+		Calendar calendar = Calendar.getInstance(); // Get current time
+		calendar.add(Calendar.SECOND, -2); // Add 1 second to the current time
+		AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, fullScreenIntent, PendingIntent.FLAG_IMMUTABLE);
+		alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+		//
+
 		sharedPreferences = ConstantsAndStatics.getSharedPref(this);
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
@@ -276,6 +265,7 @@ public class Service_RingAlarm extends Service implements SensorEventListener,
 				// Do NOT move this!!!!
 				alarmDetails = Objects.requireNonNull(Objects.requireNonNull(intent.getExtras())
 						.getBundle(ConstantsAndStatics.BUNDLE_KEY_ALARM_DETAILS));
+
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
 						startForeground(notifID, buildRingNotification(),
@@ -287,7 +277,8 @@ public class Service_RingAlarm extends Service implements SensorEventListener,
 				} else {
 					startForeground(notifID, buildRingNotification());
 				}
-				isThisServiceRunning = true;
+
+                isThisServiceRunning = true;
 				preMatureDeath = true;
 				alarmRingingStarted = false;
 
@@ -404,7 +395,7 @@ public class Service_RingAlarm extends Service implements SensorEventListener,
 					stopForeground(Service.STOP_FOREGROUND_DETACH);
 				}
 			}
-		}catch (IOException|JSONException e) {
+		}catch (Exception e) {
 			NotificationChannel channel = null;
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 				channel = new NotificationChannel(Integer.toString(ConstantsAndStatics.NOTIF_CHANNEL_ID_ALARM),
