@@ -224,16 +224,7 @@ public class Service_RingAlarm extends Service implements SensorEventListener,
 		if(rightNow.get(Calendar.HOUR_OF_DAY)!=alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_ALARM_HOUR) || rightNow.get(Calendar.MINUTE)!=alarmDetails.getInt(ConstantsAndStatics.BUNDLE_KEY_ALARM_MINUTE)){
 			return Service.START_STICKY_COMPATIBILITY;
 		}
-		Intent fullScreenIntent = new Intent(this, Activity_RingAlarm.class)
-				.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-				.putExtras(alarmDetails);
-		//I dont know why, but I have to define an alarm to start the activity
-		Calendar calendar = Calendar.getInstance(); // Get current time
-		calendar.add(Calendar.SECOND, -2); // Add 1 second to the current time
-		AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, fullScreenIntent, PendingIntent.FLAG_IMMUTABLE);
-		alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-		//
+
 
 		sharedPreferences = ConstantsAndStatics.getSharedPref(this);
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -266,6 +257,16 @@ public class Service_RingAlarm extends Service implements SensorEventListener,
 				alarmDetails = Objects.requireNonNull(Objects.requireNonNull(intent.getExtras())
 						.getBundle(ConstantsAndStatics.BUNDLE_KEY_ALARM_DETAILS));
 
+				Intent fullScreenIntent = new Intent(this, Activity_RingAlarm.class)
+						.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+						.putExtras(alarmDetails);
+				//I dont know why, but I have to define an alarm to start the activity
+				Calendar calendar = Calendar.getInstance(); // Get current time
+				calendar.add(Calendar.SECOND, -2); // Add 1 second to the current time
+				AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+				PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, fullScreenIntent, PendingIntent.FLAG_IMMUTABLE);
+				alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+				//
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
 						startForeground(notifID, buildRingNotification(),
